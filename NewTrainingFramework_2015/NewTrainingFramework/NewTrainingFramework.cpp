@@ -7,11 +7,13 @@
 #include "Shaders.h"
 #include <conio.h>
 #include "Globals.h"
+#include "Camera.h"
 
 
 
 GLuint vboId;
 Shaders myShaders;
+Camera x;
 
 int Init ( ESContext *esContext )
 {
@@ -39,6 +41,8 @@ int Init ( ESContext *esContext )
 
 }
 
+float alfa = 0.01;
+
 void Draw ( ESContext *esContext )
 {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -47,7 +51,10 @@ void Draw ( ESContext *esContext )
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 
-	
+	Matrix mr;
+	alfa += 0.01;
+	mr.SetRotationZ(alfa);
+
 	if(myShaders.positionAttribute != -1)
 	{
 		glEnableVertexAttribArray(myShaders.positionAttribute);
@@ -60,6 +67,11 @@ void Draw ( ESContext *esContext )
 		glVertexAttribPointer(myShaders.colorAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Vector3));
 	}
 
+	if (myShaders.matrixUniform != -1)
+	{
+		glUniformMatrix4fv(myShaders.matrixUniform, 1, GL_FALSE, (GLfloat*) mr.m);
+	}
+
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -69,12 +81,24 @@ void Draw ( ESContext *esContext )
 
 void Update ( ESContext *esContext, float deltaTime )
 {
-
+	//x.deltaTime = deltaTime;
 }
 
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 {
-	
+	switch (key)
+	{
+	case 'W': x.moveOy(1);
+		break;
+	case 'A': x.moveOx(1);
+		break;
+	case 'D': x.moveOx(-1);
+		break;
+	case 'S': x.moveOz(1);
+		break;
+	default:
+		break;
+	}
 }
 
 void CleanUp()
