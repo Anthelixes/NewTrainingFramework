@@ -1,4 +1,4 @@
-﻿  NewTrainingFramework.cpp
-e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\newtrainingframework.cpp(44): warning C4305: 'initializing': truncation from 'double' to 'float'
-e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\newtrainingframework.cpp(55): warning C4305: '+=': truncation from 'double' to 'float'
+﻿  Camera.cpp
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\camera.cpp(11): warning C4305: '=': truncation from 'double' to 'GLfloat'
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\camera.cpp(13): warning C4305: '=': truncation from 'double' to 'GLfloat'
   NewTrainingFramework.vcxproj -> E:\Gameloft\proiect_2015\NewTrainingFramework_2015\\BIN-Nvidia\NewTrainingFramework.exe

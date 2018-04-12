@@ -32,5 +32,9 @@ public:
 	void rotateOy(GLfloat);
 	void rotateOz(GLfloat);
 	void updateWorldView();
+	void set_DeltaTime(float);
+	Matrix getView();
+	float getFOV();
+	float getNear();
+	float getFar();
 };
-

@@ -51,9 +51,11 @@ void Draw ( ESContext *esContext )
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 
-	Matrix mr;
+	Matrix mr, P;
 	alfa += 0.01;
-	mr.SetRotationZ(alfa);
+	mr = x.getView();
+	P.SetPerspective(x.getFOV(), (GLfloat)Globals::screenWidth / Globals::screenHeight, x.getNear(), x.getFar());
+	mr = mr * P;
 
 	if(myShaders.positionAttribute != -1)
 	{
@@ -81,20 +83,20 @@ void Draw ( ESContext *esContext )
 
 void Update ( ESContext *esContext, float deltaTime )
 {
-	//x.deltaTime = deltaTime;
+	x.set_DeltaTime(deltaTime);
 }
 
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 {
 	switch (key)
 	{
-	case 'W': x.moveOy(1);
+	case 'W': x.moveOz(1);
 		break;
 	case 'A': x.moveOx(1);
 		break;
 	case 'D': x.moveOx(-1);
 		break;
-	case 'S': x.moveOz(1);
+	case 'S': x.moveOz(-1);
 		break;
 	default:
 		break;

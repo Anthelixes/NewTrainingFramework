@@ -5,7 +5,42 @@
 
 Camera::Camera()
 {
+	this->position = Vector3(0.0,0.0,1.0);
+	this->target = Vector3(0.0,0.0,0.0);
+	this->up = Vector3(0.0, 1.0, 0.0);
+	this->moveSpeed = 0.8;
+	this->rotateSpeed = 0.5;
+	this->Near = 0.2;
+	this->Far = 5000.0;
+	this->fov = 45.0;
 
+	zAxis = -(target - position).Normalize();
+	yAxis = up.Normalize();
+	xAxis = zAxis.Cross(yAxis).Normalize();
+
+	Matrix T, R, Tinv, Rinv;
+
+	R.m[0][0] = xAxis.x;
+	R.m[0][1] = xAxis.y;
+	R.m[0][2] = xAxis.z;
+	R.m[0][3] = 0;
+	R.m[1][0] = yAxis.x;
+	R.m[1][1] = yAxis.y;
+	R.m[1][2] = yAxis.z;
+	R.m[1][3] = 0;
+	R.m[2][0] = zAxis.x;
+	R.m[2][1] = zAxis.y;
+	R.m[2][2] = zAxis.z;
+	R.m[2][3] = 0;
+	R.m[3][0] = 0;
+	R.m[3][1] = 0;
+	R.m[3][2] = 0;
+	R.m[3][3] = 1;
+	T.SetTranslation(position.x, position.y, position.z);
+	worldMatrix = R * T;
+	Tinv = T.SetTranslation(-position.x, -position.y, -position.z);
+	Rinv = R.Transpose();
+	viewMatrix = Tinv * Rinv;
 }
 Camera::Camera(Vector3 position, Vector3 target, Vector3 up, GLfloat moveSpeed, GLfloat rotateSpeed, GLfloat Near, GLfloat Far, GLfloat fov, GLfloat deltatime)
 {
@@ -32,10 +67,14 @@ Camera::Camera(Vector3 position, Vector3 target, Vector3 up, GLfloat moveSpeed, 
 	R.m[1][1] = yAxis.y;
 	R.m[1][2] = yAxis.z;
 	R.m[1][3] = 0;
-	R.m[2][0] = 0;
-	R.m[2][1] = 0;
-	R.m[2][2] = 0;
-	R.m[2][3] = 1;
+	R.m[2][0] = zAxis.x;
+	R.m[2][1] = zAxis.y;
+	R.m[2][2] = zAxis.z;
+	R.m[2][3] = 0;
+	R.m[3][0] = 0;
+	R.m[3][1] = 0;
+	R.m[3][2] = 0;
+	R.m[3][3] = 1;
 	T.SetTranslation(position.x, position.y, position.z);
 	worldMatrix = R * T;
 	Tinv = T.SetTranslation(-position.x, -position.y, -position.z);
@@ -131,10 +170,14 @@ void Camera::updateWorldView() {
 	R.m[1][1] = yAxis.y;
 	R.m[1][2] = yAxis.z;
 	R.m[1][3] = 0;
-	R.m[2][0] = 0;
-	R.m[2][1] = 0;
-	R.m[2][2] = 0;
-	R.m[2][3] = 1;
+	R.m[2][0] = zAxis.x;
+	R.m[2][1] = zAxis.y;
+	R.m[2][2] = zAxis.z;
+	R.m[2][3] = 0;
+	R.m[3][0] = 0;
+	R.m[3][1] = 0;
+	R.m[3][2] = 0;
+	R.m[3][3] = 1;
 	T.SetTranslation(position.x, position.y, position.z);
 	worldMatrix = R * T;
 	Tinv = T.SetTranslation(-position.x, -position.y, -position.z);
@@ -143,4 +186,24 @@ void Camera::updateWorldView() {
 }
 Camera::~Camera()
 {
+}
+
+Matrix Camera::getView() {
+	return viewMatrix;
+}
+
+float Camera::getFOV() {
+	return fov;
+}
+float Camera::getNear() {
+	return Near;
+}
+float Camera::getFar() {
+	return Far;
+}
+
+
+
+void Camera::set_DeltaTime(float aux) {
+	deltaTime = aux;
 }
