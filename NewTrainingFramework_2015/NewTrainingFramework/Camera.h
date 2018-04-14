@@ -15,13 +15,15 @@ class Camera
 	Vector3 xAxis;
 	Vector3 yAxis;
 	Vector3 zAxis;
-	Matrix viewMatrix;
-	Matrix worldMatrix;
-
 	Vector3 forward;
 	Vector3 vectorDeplasare;
 
 public:
+
+	Matrix Perspect;
+	Matrix viewMatrix;
+	Matrix worldMatrix;
+
 	Camera();
 	~Camera();
 	Camera(Vector3, Vector3, Vector3, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
@@ -32,7 +34,7 @@ public:
 	void rotateOy(GLfloat);
 	void rotateOz(GLfloat);
 	void updateWorldView();
-	void set_DeltaTime(float);
+	void setDeltaTime(float);
 	Matrix getView();
 	float getFOV();
 	float getNear();
