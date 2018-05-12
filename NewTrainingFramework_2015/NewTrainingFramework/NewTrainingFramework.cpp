@@ -8,93 +8,218 @@
 #include <conio.h>
 #include "Globals.h"
 #include "Camera.h"
+#include "../Utilities/esUtil.h"
 
-
-
-GLuint vboId;
-Shaders myShaders;
-Shaders lineShaders;
 Camera x;
+GLuint	vboId;
+GLuint	lineId;
+GLuint	texturaId; //pt textura
+GLuint	modelId; //pt vertecsi
+GLuint	indiciId; //pt indici
+Shaders	myShaders; //pt triunghi
+Shaders	lineShaders; //pt linie
+Shaders	myModel; //pt model
+Vertex*	model;
+int		nrVertices;
+int		nrIndices;
+unsigned short*	vIndices;
+void parsare();
+
+char*	array_pixels;
+GLint	width, height, bpp;
+GLuint	format;
 
 int Init ( ESContext *esContext )
 {
+	glEnable(GL_DEPTH_TEST);
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
 
 	//triangle data (heap)
-	Vertex verticesData[6];
+	
+	parsare();
 
-	verticesData[0].pos.x = -0.5f;  verticesData[0].pos.y =  0.5f;  verticesData[0].pos.z =  0.0f;
-	verticesData[1].pos.x = -0.5f;  verticesData[1].pos.y = -0.5f;  verticesData[1].pos.z =  0.0f;
-	verticesData[2].pos.x =  0.5f;  verticesData[2].pos.y = -0.5f;  verticesData[2].pos.z =  0.0f;
-	
-	verticesData[3].pos.x = 0.5f;	verticesData[3].pos.y = -0.5f;  verticesData[3].pos.z = 0.0f;
-	verticesData[4].pos.x = -0.5f;	verticesData[4].pos.y = 0.5f;	verticesData[4].pos.z = 0.0f;
-	verticesData[5].pos.x = 0.5f;	verticesData[5].pos.y = 0.5f;	verticesData[5].pos.z = 0.0f;
-
-	verticesData[0].color.x = 0.0f;  verticesData[0].color.y = 0.0f;  verticesData[0].color.z = 1.0f; // 
-	verticesData[1].color.x = 0.0f;  verticesData[1].color.y = 1.0f;  verticesData[1].color.z = 0.0f; //verde drp jos
-	verticesData[2].color.x = 1.0f;  verticesData[2].color.y = 0.0f;  verticesData[2].color.z = 0.0f; //rosu
-	
-	verticesData[3].color.x = 1.0f;	 verticesData[3].color.y = 0.0f;  verticesData[3].color.z = 0.0f;
-	verticesData[4].color.x = 0.0f;	 verticesData[4].color.y = 0.0f;  verticesData[4].color.z = 1.0f;
-	verticesData[5].color.x = 1.0f;	 verticesData[5].color.y = 0.0f;  verticesData[5].color.z = 1.0f;
-	
 	//buffer object
-	glGenBuffers(1, &vboId);
-	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW);
+	
+	//pentru model
+	glGenBuffers(1, &modelId);
+	glBindBuffer(GL_ARRAY_BUFFER, modelId);
+	glBufferData(GL_ARRAY_BUFFER, nrVertices*sizeof(Vertex), model, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	//creation of shaders and program 
-	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+	glGenBuffers(1, &indiciId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, nrIndices*sizeof(unsigned short), vIndices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//end model
 
+	//5.5
+	array_pixels = LoadTGA("../Resources/Textures/witch.tga", &width, &height, &bpp);
+	if (bpp == 24) {
+		format = GL_RGB;
+	}
+	else {
+		format = GL_RGBA;
+	}
+	glGenTextures(1, &texturaId);//
+	glBindTexture(GL_TEXTURE_2D, texturaId);//
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);//
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, (GLvoid *)array_pixels);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	//end 5.5
+
+	//creation of shaders and program 
+	myModel.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+	lineShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+}
+
+void parsare() {
+	std::ifstream fs;
+	fs.open("../Resources/Models/witch.nfg");
+	if (!fs)
+		std::cout << "Unable to open\n" << std::endl;
+	std::string str;
+	std::string aux;
+	std::getline(fs, str);
+	std::cout << str << std::endl;
+	aux = str.substr(12);
+	nrVertices = std::stof(aux);
+	std::cout << nrVertices << std::endl;
+	model = new Vertex[nrVertices];
+	for (int i = 0; i < nrVertices; i++)
+	{
+		std::string aux;
+		std::cout << i << std::endl;
+		std::getline(fs, str, '[');
+		std::getline(fs, str, ',');
+		model[i].pos.x = std::stof(str);
+		std::getline(fs, str, ',');
+		model[i].pos.y = std::stof(str);
+		std::getline(fs, str, ']');
+		model[i].pos.z = std::stof(str);
+		
+		std::getline(fs, str, '[');
+		std::getline(fs, str, ',');
+		model[i].norm.x = std::stof(str);
+		std::getline(fs, str, ',');
+		model[i].norm.y = std::stof(str);
+		std::getline(fs, str, ']');
+		model[i].norm.z = std::stof(str);
+		
+		std::getline(fs, str, '[');
+		std::getline(fs, str, ',');
+		model[i].binorm.x = std::stof(str);
+		std::getline(fs, str, ',');
+		model[i].binorm.y = std::stof(str);
+		std::getline(fs, str, ']');
+		model[i].binorm.z = std::stof(str);
+		
+		std::getline(fs, str, '[');
+		std::getline(fs, str, ',');
+		model[i].tgt.x = std::stof(str);
+		std::getline(fs, str, ',');
+		model[i].tgt.y = std::stof(str);
+		std::getline(fs, str, ']');
+		model[i].tgt.z = std::stof(str);
+		
+		std::getline(fs, str, '[');
+		std::getline(fs, str, ',');
+		model[i].uv.x = std::stof(str);
+		std::getline(fs, str, ']');
+		model[i].uv.y = std::stof(str);
+
+		std::getline(fs, str);
+	}
+	
+	std::string numar;
+	std::string tmp;
+
+	std::getline(fs, numar);
+	std::cout << numar << std::endl;
+	tmp = numar.substr(11);
+	nrIndices = std::stof(tmp);
+	std::cout << nrIndices << std::endl;
+	vIndices = new unsigned short[nrIndices];
+	for (int i = 0; i < nrIndices; i++)
+	{
+		std::getline(fs, numar, '.');
+		std::getline(fs, numar, ',');
+		vIndices[i++] = std::stof(numar);
+		std::getline(fs, numar, ',');
+		vIndices[i++] = std::stof(numar);
+		std::getline(fs, numar);
+		vIndices[i] = std::stof(numar);
+	}
+	fs.close();
 }
 
 float alfa = 0.01;
+float sens = 1;
 
 void Draw ( ESContext *esContext )
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glUseProgram(myShaders.program);
+	//Pentru triunghi
+	//end triunghi
+	//Pentru linie
+	//end linie
+	//Pentru model
+	glUseProgram(myModel.program);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vboId);
+	Matrix mod;
+	mod = x.viewMatrix * x.Perspect;
+	
+	glBindBuffer(GL_ARRAY_BUFFER, modelId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
 
-	Matrix mr, P;
-	Matrix mvp;
-
-	alfa += 0.01;
-	mvp = x.viewMatrix * x.Perspect;
-	//P.SetPerspective(x.getFOV(), (GLfloat)Globals::screenWidth / Globals::screenHeight, x.getNear(), x.getFar());
-	//mr = mr * P;
-
-	if(myShaders.positionAttribute != -1)
+	if (myModel.positionAttribute != -1)
 	{
-		glEnableVertexAttribArray(myShaders.positionAttribute);
-		glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+		glEnableVertexAttribArray(myModel.positionAttribute);
+		glVertexAttribPointer(myModel.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	}
 
-	if (myShaders.colorAttribute != -1)
+
+	if (myModel.matrixUniform != -1)
 	{
-		glEnableVertexAttribArray(myShaders.colorAttribute);
-		glVertexAttribPointer(myShaders.colorAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Vector3));
+		glUniformMatrix4fv(myModel.matrixUniform, 1, GL_FALSE, (GLfloat*)mod.m);
 	}
 
-	if (myShaders.matrixUniform != -1)
+	if (myModel.textureUniform != -1)
 	{
-		glUniformMatrix4fv(myShaders.matrixUniform, 1, GL_FALSE, (GLfloat*) mvp.m);
+		glBindTexture(GL_TEXTURE_2D, texturaId);//
+		glUniform1i(myModel.textureUniform, 0);
 	}
 
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	if (myModel.uvAttribute != -1)
+	{
+		glEnableVertexAttribArray(myModel.uvAttribute);
+		glVertexAttribPointer(myModel.uvAttribute, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(5*sizeof(Vector3)));
+	}
 
+	glDrawElements(GL_TRIANGLES, nrIndices, GL_UNSIGNED_SHORT, (void *)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//end model
+	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
 void Update ( ESContext *esContext, float deltaTime )
 {
 	x.setDeltaTime(deltaTime);
+	POINT pct;
+	if ((GetKeyState(VK_LBUTTON) & 0x100) != 0) {
+		GetCursorPos(&pct);//coord pe ecran
+		ScreenToClient(esContext->hWnd, &pct);// coord in fereastra
+		if (pct.x > 0 && pct.x < esContext->width / 2)
+			sens = -1;
+		else
+			if (pct.x > esContext->width / 2 && pct.x < esContext->width)
+				sens = 1;
+	}
 }
 
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
@@ -169,7 +294,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//releasing OpenGL resources
 	CleanUp();
-
 
 	printf("Press any key...\n");
 	_getch();

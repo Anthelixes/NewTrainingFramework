@@ -9,10 +9,10 @@ Camera::Camera()
 	this->position = Vector3(0.0,0.0,1.0);
 	this->target = Vector3(0.0,0.0,0.0);
 	this->up = Vector3(0.0, 1.0, 0.0);
-	this->moveSpeed = 0.8;
+	this->moveSpeed = 50.0;
 	this->rotateSpeed = 0.2;
 	this->Near = 0.2;
-	this->Far = 100.0;
+	this->Far = 5000.0;
 	this->fov = 45.0;
 
 	zAxis = -(target - position).Normalize();
