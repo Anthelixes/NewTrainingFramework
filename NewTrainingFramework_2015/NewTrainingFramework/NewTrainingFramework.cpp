@@ -2,28 +2,36 @@
 //
 
 #include "stdafx.h"
+#include <conio.h>
+#include <string>
+#include <vector>
+#include <cstdio>
+#include <sstream>
 #include "../Utilities/utilities.h" // if you use STL, please include this line AFTER all other include
 #include "Vertex.h"
 #include "Shaders.h"
-#include <conio.h>
 #include "Globals.h"
 #include "Camera.h"
+#include "ResourceManager.h"
+#include "SceneManager.h"
 #include "../Utilities/esUtil.h"
 
-Camera x;
-GLuint	vboId;
-GLuint	lineId;
-GLuint	texturaId; //pt textura
-GLuint	modelId; //pt vertecsi
-GLuint	indiciId; //pt indici
-Shaders	myShaders; //pt triunghi
-Shaders	lineShaders; //pt linie
-Shaders	myModel; //pt model
-Vertex*	model;
-int		nrVertices;
-int		nrIndices;
+
+
+Camera			x;
+GLuint			vboId;
+GLuint			lineId;
+GLuint			texturaId; //pt textura
+GLuint			modelId; //pt vertecsi
+GLuint			indiciId; //pt indici
+Shaders			myShaders; //pt triunghi
+Shaders			lineShaders; //pt linie
+Shaders			myModel; //pt model
+Vertex*			model; //vector de vertecsi
+int				nrVertices;
+int				nrIndices;
 unsigned short*	vIndices;
-void parsare();
+void			parsare();
 
 char*	array_pixels;
 GLint	width, height, bpp;
