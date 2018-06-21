@@ -12,8 +12,6 @@
 #include "Shaders.h"
 #include "Globals.h"
 #include "Camera.h"
-#include "ResourceManager.h"
-#include "SceneManager.h"
 #include "../Utilities/esUtil.h"
 
 
@@ -24,14 +22,20 @@ GLuint			lineId;
 GLuint			texturaId; //pt textura
 GLuint			modelId; //pt vertecsi
 GLuint			indiciId; //pt indici
+GLuint			wiredIboId; //pt wired
 Shaders			myShaders; //pt triunghi
 Shaders			lineShaders; //pt linie
 Shaders			myModel; //pt model
 Vertex*			model; //vector de vertecsi
 int				nrVertices;
 int				nrIndices;
+int				nrIndicesW;
 unsigned short*	vIndices;
+unsigned short* wIndices;
+std::vector<unsigned int>	indices;
+std::vector<unsigned int>   windices;
 void			parsare();
+bool			wired = true;
 
 char*	array_pixels;
 GLint	width, height, bpp;
@@ -54,10 +58,22 @@ int Init ( ESContext *esContext )
 	glBufferData(GL_ARRAY_BUFFER, nrVertices*sizeof(Vertex), model, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &indiciId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, nrIndices*sizeof(unsigned short), vIndices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	if (!wired) {
+		glGenBuffers(1, &indiciId);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, nrIndices * sizeof(unsigned short), vIndices, GL_STATIC_DRAW); //
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+	else
+	{
+		//21-06
+		glGenBuffers(1, &wiredIboId);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, windices.size() * sizeof(unsigned int), &(windices)[0], GL_STATIC_DRAW);//&(windices)[0]
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		//END 21-06
+	}
+
 	//end model
 
 	//5.5
@@ -145,12 +161,14 @@ void parsare() {
 	std::string numar;
 	std::string tmp;
 
+	/*
 	std::getline(fs, numar);
 	std::cout << numar << std::endl;
 	tmp = numar.substr(11);
 	nrIndices = std::stof(tmp);
 	std::cout << nrIndices << std::endl;
 	vIndices = new unsigned short[nrIndices];
+	
 	for (int i = 0; i < nrIndices; i++)
 	{
 		std::getline(fs, numar, '.');
@@ -161,6 +179,78 @@ void parsare() {
 		std::getline(fs, numar);
 		vIndices[i] = std::stof(numar);
 	}
+	
+	*/
+
+	std::string		aux1;
+	unsigned int	ind1, ind;
+	float			vertex;
+
+	std::getline(fs, numar);
+	std::cout << numar << std::endl;
+	tmp = numar.substr(11);
+	nrIndices = std::stof(tmp);
+	std::cout << nrIndices << std::endl;
+
+	nrIndicesW = nrIndices / 3;
+	std::cout << nrIndicesW << std::endl;
+	vIndices = new unsigned short[nrIndices];
+	wIndices = new unsigned	short[nrIndices / 3];
+
+	for (int i = 0; i < nrIndices / 3; i++)
+	{
+		fs >> aux1;
+		fs >> aux1;
+		ind = atoi(aux1.c_str());
+		ind1 = ind;
+		indices.push_back(ind);
+		windices.push_back(ind);
+		fs >> aux1;
+		ind = atoi(aux1.c_str());
+		indices.push_back(ind);
+		windices.push_back(ind);
+		windices.push_back(ind);
+		fs >> aux1;
+		ind = atoi(aux1.c_str());
+		windices.push_back(ind);
+		windices.push_back(ind);
+		windices.push_back(ind1);
+		indices.push_back(ind);
+	}
+	nrIndicesW = nrIndices / 3;
+	for (int i = 0; i < nrIndices; i++)
+	{
+		vIndices[i] = indices[i];
+	}
+	for (int i = 0; i < nrIndicesW; i++)
+	{
+		wIndices[i] = windices.at(i);
+	}
+
+	/*
+	for (int i = 0; i < nrIndices / 3; i++)
+	{
+		std::getline(fs, numar, '.');
+		std::getline(fs, numar, ',');
+		vIndices[i] = std::stof(numar);
+		wIndices[i] = std::stof(numar);
+		std::cout << wIndices[i] << "\t" << vIndices << std::endl;
+		i++;
+
+		std::getline(fs, numar, ',');
+		vIndices[i] = std::stof(numar);
+		wIndices[i] = std::stof(numar);
+		wIndices[i] = std::stof(numar);
+		std::cout << wIndices[i] << wIndices[i+1] << "\t" << vIndices << std::endl;
+		i++;
+
+		std::getline(fs, numar);
+		wIndices[i] = std::stof(numar);
+		wIndices[i] = std::stof(numar);
+		wIndices[i] = std::stof(numar);
+		vIndices[i] = std::stof(numar);
+		std::cout << wIndices[i] << "\t" << wIndices[i + 1] << "\t" << wIndices[i+2] << "\t" << vIndices << std::endl;
+	}*/
 	fs.close();
 }
 
@@ -182,7 +272,14 @@ void Draw ( ESContext *esContext )
 	mod = x.viewMatrix * x.Perspect;
 	
 	glBindBuffer(GL_ARRAY_BUFFER, modelId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
+	if (!wired)
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
+	else
+	{
+		//21.06
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId); //
+		//END 21.06
+	}
 
 	if (myModel.positionAttribute != -1)
 	{
@@ -208,9 +305,26 @@ void Draw ( ESContext *esContext )
 		glVertexAttribPointer(myModel.uvAttribute, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(5*sizeof(Vector3)));
 	}
 
-	glDrawElements(GL_TRIANGLES, nrIndices, GL_UNSIGNED_SHORT, (void *)0);
+	if(!wired)
+		glDrawElements(GL_TRIANGLES, nrIndices, GL_UNSIGNED_SHORT, (void *)0);
+	
+	else
+	{
+		//21.06
+		glDrawElements(GL_LINES, nrIndices*2, GL_UNSIGNED_INT, (void *)0);//
+		//END 21.06
+	}
+	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	if (!wired)
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	else {
+		//21.06
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);//
+		//END 21.06
+	}
+
 	//end model
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
