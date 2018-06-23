@@ -26,7 +26,7 @@ public:
 
 	Camera();
 	~Camera();
-	Camera(Vector3, Vector3, Vector3, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
+	Camera(Vector3, Vector3, Vector3, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
 	void moveOx(GLfloat);
 	void moveOy(GLfloat);
 	void moveOz(GLfloat);

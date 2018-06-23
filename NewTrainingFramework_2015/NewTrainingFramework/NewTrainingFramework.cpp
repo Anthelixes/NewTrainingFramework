@@ -13,10 +13,12 @@
 #include "Globals.h"
 #include "Camera.h"
 #include "../Utilities/esUtil.h"
+#include "ResourceManager.h"
+#include "SceneManager.h"
 
 
 
-Camera			x;
+//Camera			x;
 GLuint			vboId;
 GLuint			lineId;
 GLuint			texturaId; //pt textura
@@ -41,19 +43,25 @@ char*	array_pixels;
 GLint	width, height, bpp;
 GLuint	format;
 
+ResourceManager* rm = ResourceManager::getInstance();
+SceneManager*	sm = SceneManager::getInstance();
+
 int Init ( ESContext *esContext )
 {
 	glEnable(GL_DEPTH_TEST);
+	ResourceManager::getInstance()->Init();
+	SceneManager::getInstance()->Init();
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
 
 	//triangle data (heap)
 	
-	parsare();
+	//parsare();
+
 
 	//buffer object
 	
 	//pentru model
-	glGenBuffers(1, &modelId);
+	/*(1, &modelId);
 	glBindBuffer(GL_ARRAY_BUFFER, modelId);
 	glBufferData(GL_ARRAY_BUFFER, nrVertices*sizeof(Vertex), model, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -66,17 +74,15 @@ int Init ( ESContext *esContext )
 	}
 	else
 	{
-		//21-06
 		glGenBuffers(1, &wiredIboId);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, windices.size() * sizeof(unsigned int), &(windices)[0], GL_STATIC_DRAW);//&(windices)[0]
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		//END 21-06
-	}
+	}*/
 
 	//end model
 
-	//5.5
+	/*
 	array_pixels = LoadTGA("../Resources/Textures/witch.tga", &width, &height, &bpp);
 	if (bpp == 24) {
 		format = GL_RGB;
@@ -91,13 +97,14 @@ int Init ( ESContext *esContext )
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, (GLvoid *)array_pixels);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	//end 5.5
+	glBindTexture(GL_TEXTURE_2D, 0);*/
 
 	//creation of shaders and program 
-	myModel.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+	/*myModel.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
 	lineShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
-	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");*/
+
+	return 0;
 }
 
 void parsare() {
@@ -261,11 +268,9 @@ void Draw ( ESContext *esContext )
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//Pentru triunghi
-	//end triunghi
-	//Pentru linie
-	//end linie
-	//Pentru model
+	
+	SceneManager::getInstance()->Draw();
+	/*
 	glUseProgram(myModel.program);
 
 	Matrix mod;
@@ -275,11 +280,7 @@ void Draw ( ESContext *esContext )
 	if (!wired)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
 	else
-	{
-		//21.06
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId); //
-		//END 21.06
-	}
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId);
 
 	if (myModel.positionAttribute != -1)
 	{
@@ -309,29 +310,23 @@ void Draw ( ESContext *esContext )
 		glDrawElements(GL_TRIANGLES, nrIndices, GL_UNSIGNED_SHORT, (void *)0);
 	
 	else
-	{
-		//21.06
 		glDrawElements(GL_LINES, nrIndices*2, GL_UNSIGNED_INT, (void *)0);//
-		//END 21.06
-	}
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	if (!wired)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	else {
-		//21.06
+	else
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);//
-		//END 21.06
-	}
 
-	//end model
+	//end model*/
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
 void Update ( ESContext *esContext, float deltaTime )
 {
-	x.setDeltaTime(deltaTime);
+	Camera *x = SceneManager::getInstance()->getActiveCamera();
+	x->setDeltaTime(deltaTime);
 	POINT pct;
 	if ((GetKeyState(VK_LBUTTON) & 0x100) != 0) {
 		GetCursorPos(&pct);//coord pe ecran
@@ -346,43 +341,44 @@ void Update ( ESContext *esContext, float deltaTime )
 
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 {
+	Camera *x = SceneManager::getInstance()->getActiveCamera();
 	switch (key)
 	{
 	case 'W':
-		x.moveOz(-1);
+		x->moveOz(-1);
 		break;
 	case 'S':
-		x.moveOz(1);
+		x->moveOz(1);
 		break;
 	case 'Q':
-		x.moveOy(1);
+		x->moveOy(1);
 		break;
 	case 'E':
-		x.moveOy(-1);
+		x->moveOy(-1);
 		break;
 	case 'A':
-		x.moveOx(1);
+		x->moveOx(1);
 		break;
 	case 'D':
-		x.moveOx(-1);
+		x->moveOx(-1);
 		break;
 	case 'I':
-		x.rotateOx(1);
+		x->rotateOx(1);
 		break;
 	case 'L':
-		x.rotateOy(-1);
+		x->rotateOy(-1);
 		break;
 	case 'K':
-		x.rotateOx(-1);
+		x->rotateOx(-1);
 		break;
 	case 'J':
-		x.rotateOy(1);
+		x->rotateOy(1);
 		break;
 	case 'U':
-		x.rotateOz(1);
+		x->rotateOz(1);
 		break;
 	case 'O':
-		x.rotateOz(-1);
+		x->rotateOz(-1);
 		break;
 	default:
 		break;

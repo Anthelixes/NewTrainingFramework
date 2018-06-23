@@ -164,7 +164,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="NewTrainingFramework.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-ATI|Win32'">Create</PrecompiledHeader>
@@ -172,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-ATI|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Nvidia|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -180,6 +186,7 @@
     <ClInclude Include="ModelResource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="Shaders.h" />
@@ -190,8 +197,8 @@
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Shaders\TriangleShaderFS.fs" />
-    <None Include="..\Resources\Shaders\TriangleShaderVS.vs" />
+    <None Include="..\Resources\Shaders\fragmentShader.fs" />
+    <None Include="..\Resources\Shaders\vertexShader.vs" />
     <None Include="..\..\Readme.doc" />
   </ItemGroup>
   <ItemGroup>

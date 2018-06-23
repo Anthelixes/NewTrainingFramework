@@ -46,18 +46,17 @@
 			<blend>true</blend>
 			<name>Crocodil_verde</name><!-- optional -->
 			<textures>
-				<texture id="4"/>
-				<texture id="14"/>
+				<texture id="1"/>
 			</textures>
 			<position><!-- translatia -->
-				<x>20.5</x>
-				<y>27</y>
-				<z>21.22</z>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
 			</position>
 			<rotation>
-				<x>0.5</x>
-				<y>1.4</y>
-				<z>1</z>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
 			</rotation>
 			<scale>
 				<x>1.0</x>
@@ -78,7 +77,7 @@
 			</lights>
 		</object>
 		
-		
+		<!--
 		<object id="8">
 			<model>generated</model>
 			<shader>8</shader>
@@ -108,7 +107,7 @@
 				<z>2.0</z>
 			</scale>
 			<trajectory type="linear" iteration="infinite" direction="alternate">
-			<!-- startPoint e chiar Pos -->
+			
 				<endPoint>
 					<x>0.5</x>
 					<y>100.0</y>
@@ -119,10 +118,89 @@
 			<lights>
 				<light>1</light>
 			</lights>
+		</object>-->
+		
+		<!--ADD nou-->
+		<object id="2">
+			<model>1</model><!-- id model -->
+			<shader>10</shader><!-- id shader -->
+			<type>normal</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Crocodil_verde</name><!-- optional -->
+			<textures>
+				<texture id="1"/>
+			</textures>
+			<position><!-- translatia -->
+				<x>-10.0</x>
+				<y>0.0</y>
+				<z>1.0</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>0.1</x>
+				<y>0.1</y>
+				<z>0.1</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>
+
+		<!--ADD nou-->
+		<object id="7">
+			<model>3</model><!-- id model -->
+			<shader>10</shader><!-- id shader -->
+			<type>normal</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Crocodil_verde</name><!-- optional -->
+			<textures>
+				<texture id="5"/>
+			</textures>
+			<position><!-- translatia -->
+				<x>10.0</x>
+				<y>0.0</y>
+				<z>-1.0</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>0.1</x>
+				<y>0.1</y>
+				<z>0.1</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
 		</object>
 	</objects>
 	
-
 	<ambientalLight>
 		<color>
 			<r>1.0</r>

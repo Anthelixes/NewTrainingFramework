@@ -21,7 +21,7 @@ Camera::Camera()
 	updateWorldView();
 	Perspect.SetPerspective(fov, (float)Globals::screenWidth / Globals::screenHeight, Near, Far);
 }
-Camera::Camera(Vector3 position, Vector3 target, Vector3 up, GLfloat moveSpeed, GLfloat rotateSpeed, GLfloat Near, GLfloat Far, GLfloat fov, GLfloat deltatime)
+Camera::Camera(Vector3 position, Vector3 target, Vector3 up, GLfloat moveSpeed, GLfloat rotateSpeed, GLfloat Near, GLfloat Far, GLfloat fov)
 {
 	this->position = position;
 	this->target = target;
@@ -36,6 +36,7 @@ Camera::Camera(Vector3 position, Vector3 target, Vector3 up, GLfloat moveSpeed, 
 	yAxis = up.Normalize();
 	xAxis = zAxis.Cross(yAxis).Normalize();
 	updateWorldView();
+	Perspect.SetPerspective(fov, (float)Globals::screenWidth / Globals::screenHeight, Near, Far);
 }
 
 void Camera::moveOz(GLfloat directie)

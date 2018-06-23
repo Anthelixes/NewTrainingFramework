@@ -1,6 +1,23 @@
-﻿  NewTrainingFramework.cpp
-c:\users\daniela eremia\desktop\newtrainingframework_2015\newtrainingframework\newtrainingframework.cpp(113): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daniela eremia\desktop\newtrainingframework_2015\newtrainingframework\newtrainingframework.cpp(192): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daniela eremia\desktop\newtrainingframework_2015\newtrainingframework\newtrainingframework.cpp(187): warning C4101: 'vertex': unreferenced local variable
-c:\users\daniela eremia\desktop\newtrainingframework_2015\newtrainingframework\newtrainingframework.cpp(257): warning C4305: 'initializing': truncation from 'double' to 'float'
-  NewTrainingFramework.vcxproj -> C:\Users\Daniela Eremia\Desktop\NewTrainingFramework_2015\\BIN-Nvidia\NewTrainingFramework.exe
+﻿  SceneManager.cpp
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(28): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(30): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(38): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(37): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(36): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(41): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(40): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(39): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(44): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(43): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(42): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(67): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(66): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(65): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(70): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(69): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(68): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(73): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(72): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\scenemanager.cpp(71): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+  NewTrainingFramework.vcxproj -> E:\Gameloft\proiect_2015\NewTrainingFramework_2015\\BIN-Nvidia\NewTrainingFramework.exe

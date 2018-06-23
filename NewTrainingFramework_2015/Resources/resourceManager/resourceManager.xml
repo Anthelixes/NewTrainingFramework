@@ -7,21 +7,24 @@
 		<model id="5">
 			<path>Resources/Models/bila.nfg</path>
 		</model>
+		<model id="3"> <!--Add nou-->
+			<path>Resources/Models/bus.nfg</path>
+		</model>
 		<!-- si aici se adauga toate modelele -->
 	</models>
 	<shaders>
-		<shader id="10">
+		<shader id="10"><!--era 10-->
 			<vs>Resources/Shaders/vertexShader.vs</vs>
 			<fs>Resources/Shaders/fragmentShader.fs</fs>
 		</shader>
-		<shader id="3">
+		<shader id="8"><!--Era 3-->
 			<vs>Resources/Shaders/terrainShader.vs</vs>
 			<fs>Resources/Shaders/terrainShader.fs</fs>
 		</shader>
 		<!-- si aici se adauga toate shaderele -->
 	</shaders>
 	<textures>
-		<texture id="4" type="2d">
+		<texture id="1" type="2d"> <!--Era 4-->
 			<path>Resources/Textures/croco.tga</path>			
 			<min_filter>LINEAR</min_filter>
 			<mag_filter>LINEAR</mag_filter>
