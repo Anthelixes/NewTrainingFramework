@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <stdlib.h>
+#include "../Utilities/utilities.h"
 
 Model::Model()
 {
@@ -52,7 +53,7 @@ void Model::Load() {
 		vertex = atof(aux.c_str());
 
 		points[i].pos.z = (GLfloat)vertex;
-
+		
 		f >> aux;
 		aux.erase(0, 6);
 		vertex = atof(aux.c_str());
@@ -149,16 +150,14 @@ void Model::Load() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &iboId);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, nrIndices * sizeof(unsigned short), &(vIndices)[0], GL_STATIC_DRAW); //
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	//21-06
-		glGenBuffers(1, &wiredIboId);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, vWIndices.size() * sizeof(unsigned short), &(vWIndices)[0], GL_STATIC_DRAW);//&(windices)[0]
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		//END 21-06
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, nrIndices * sizeof(unsigned short), &(vIndices)[0], GL_STATIC_DRAW); //
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
+	glGenBuffers(1, &wiredIboId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, vWIndices.size() * sizeof(unsigned short), &(vWIndices)[0], GL_STATIC_DRAW);//&(windices)[0]
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 GLuint Model::getIboId() {

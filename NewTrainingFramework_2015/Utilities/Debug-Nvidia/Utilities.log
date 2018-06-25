@@ -1,1 +1,13 @@
-﻿  Utilities.vcxproj -> E:\Gameloft\proiect_2015\NewTrainingFramework_2015\\BIN-Nvidia\Utilities.lib
+﻿  stdafx.cpp
+  TGA.cpp
+  Math.cpp
+e:\gameloft\proiect_2015\newtrainingframework_2015\utilities\math.h(39): warning C4521: 'Vector2': multiple copy constructors specified
+e:\gameloft\proiect_2015\newtrainingframework_2015\utilities\math.h(77): warning C4521: 'Vector3': multiple copy constructors specified
+e:\gameloft\proiect_2015\newtrainingframework_2015\utilities\math.cpp(10): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\utilities\math.cpp(104): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+e:\gameloft\proiect_2015\newtrainingframework_2015\utilities\math.cpp(208): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+  esUtil_win.cpp
+  esUtil.cpp
+  esShader.cpp
+  Generating Code...
+  Utilities.vcxproj -> E:\Gameloft\proiect_2015\NewTrainingFramework_2015\\BIN-Nvidia\Utilities.lib

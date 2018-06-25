@@ -2,8 +2,6 @@
 #include "Model.h"
 #include "Texture.h"
 #include "Shader.h"
-#include "Camera.h"
-#include "../Utilities/utilities.h"
 
 class SceneObject
 {

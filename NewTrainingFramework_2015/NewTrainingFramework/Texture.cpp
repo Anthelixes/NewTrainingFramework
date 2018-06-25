@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Texture.h"
+#include "../Utilities/utilities.h"
+
 
 void Texture::setTextureResource(TextureResource *textureResource) {
 	tr = textureResource;

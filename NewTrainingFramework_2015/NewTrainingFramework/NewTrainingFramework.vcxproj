@@ -177,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-ATI|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Nvidia|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,12 +193,15 @@
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Shaders\fragmentShader.fs" />
+    <None Include="..\Resources\Shaders\terrainShader.fs" />
+    <None Include="..\Resources\Shaders\terrainShader.vs" />
     <None Include="..\Resources\Shaders\vertexShader.vs" />
     <None Include="..\..\Readme.doc" />
   </ItemGroup>

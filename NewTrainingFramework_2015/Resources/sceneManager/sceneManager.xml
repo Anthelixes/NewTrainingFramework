@@ -38,17 +38,18 @@
 
 	
 	<objects>
+		<!--
 		<object id="1">
-			<model>1</model><!-- id model -->
-			<shader>10</shader><!-- id shader -->
+			<model>1</model>
+			<shader>10</shader>
 			<type>normal</type>
 			<depthTest>true</depthTest>
 			<blend>true</blend>
-			<name>Crocodil_verde</name><!-- optional -->
+			<name>Crocodil_verde</name>
 			<textures>
 				<texture id="1"/>
 			</textures>
-			<position><!-- translatia -->
+			<position>
 				<x>0.0</x>
 				<y>0.0</y>
 				<z>0.0</z>
@@ -72,49 +73,6 @@
 				<oy/>
 				<oz/>
 			</followingCamera>
-			<lights>
-				<light>1</light>
-			</lights>
-		</object>
-		
-		<!--
-		<object id="8">
-			<model>generated</model>
-			<shader>8</shader>
-			<type>terrain</type>
-			<wired/>
-			<depthTest>true</depthTest>
-			<blend>false</blend>
-			<name>Teren</name>
-			<color>
-				<r>1.0</r>
-				<g>1.0</g>
-				<b>1.0</b>
-			</color>
-			<position>
-				<x>1.5</x>
-				<y>2.4</y>
-				<z>7</z>
-			</position>
-			<rotation>
-				<x>0.0</x>
-				<y>0.0</y>
-				<z>0.0</z>
-			</rotation>
-			<scale>
-				<x>2.0</x>
-				<y>2.0</y>
-				<z>2.0</z>
-			</scale>
-			<trajectory type="linear" iteration="infinite" direction="alternate">
-			
-				<endPoint>
-					<x>0.5</x>
-					<y>100.0</y>
-					<z>1.0</z>				
-				</endPoint>
-				<speed>0.1</speed>
-			</trajectory>
 			<lights>
 				<light>1</light>
 			</lights>
@@ -195,6 +153,62 @@
 				<oy/>
 				<oz/>
 			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>
+		
+		<object id="8">
+			<model>generated</model>
+			<shader>8</shader>
+			<type>terrain</type>
+			<wired/>
+			<depthTest>true</depthTest>
+			<blend>false</blend>
+			<name>Teren</name>
+			<cells>4</cells><!--23.06-->
+			<dimensiune>20</dimensiune><!--23.06-->
+			<offsetY>0</offsetY><!--23.06-->
+			<textures>
+				<texture id="50"/>
+				<texture id="40"/>
+				<texture id="60"/>
+				<texture id="70"/>
+			</textures>
+			<inaltimi>
+				<r>3</r>
+				<g>2</g>
+				<b>-1</b>
+			</inaltimi>
+			<color>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</color>
+			<position>
+				<x>1.5</x>
+				<y>2.4</y>
+				<z>7</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>2.0</x>
+				<y>2.0</y>
+				<z>2.0</z>
+			</scale>
+			<trajectory type="linear" iteration="infinite" direction="alternate">
+			
+				<endPoint>
+					<x>0.5</x>
+					<y>100.0</y>
+					<z>1.0</z>				
+				</endPoint>
+				<speed>0.1</speed>
+			</trajectory>
 			<lights>
 				<light>1</light>
 			</lights>

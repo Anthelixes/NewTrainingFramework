@@ -159,6 +159,10 @@ float Camera::getFar() {
 	return Far;
 }
 
+Vector3& Camera::getPos() {
+	return position;
+}
+
 void Camera::setDeltaTime(float aux) {
 	deltaTime = aux;
 }

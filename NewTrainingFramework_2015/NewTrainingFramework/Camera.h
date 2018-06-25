@@ -39,4 +39,5 @@ public:
 	float getFOV();
 	float getNear();
 	float getFar();
+	Vector3&	getPos();
 };

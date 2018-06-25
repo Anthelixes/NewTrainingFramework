@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 #include "TextureResource.h"
-#include "Vertex.h"
-#include "../Utilities/utilities.h"
+#include "../Utilities/esUtil.h"
 class Texture
 {
 private:

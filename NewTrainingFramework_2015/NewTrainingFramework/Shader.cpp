@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Shader.h"
+#include "../Utilities/utilities.h"
+
 
 void Shader::setShaderResource(ShaderResource *shaderResource) {
 	sr = shaderResource;
@@ -33,6 +35,7 @@ void Shader::Load() {
 	textureUniform[2] = glGetUniformLocation(id, "u_texture2");
 	textureUniform[3] = glGetUniformLocation(id, "u_texture3");
 	textureUniform[4] = glGetUniformLocation(id, "u_texture4");
+	uvblendAttribute = glGetAttribLocation(id, "a_uv_blend");
 	uvAttribute = glGetAttribLocation(id, "a_uv");
 }
 

@@ -2,6 +2,9 @@
 #include "../Resources/rapidxml-1.13/rapidxml.hpp"
 #include "ResourceManager.h"
 #include "SceneManager.h"
+#include "Terrain.h"
+#include "../Utilities/utilities.h"
+
 
 using namespace rapidxml;
 using namespace std;
@@ -61,51 +64,52 @@ void SceneManager::Init() {
 			SceneObject *scene;
 			if ((strcmp(childNode->first_node("type")->value(), "normal")) == 0) {
 				scene = new SceneObject();
-
-				scene->position = Vector3(atof(childNode->first_node("position")->first_node("x")->value()),
-					atof(childNode->first_node("position")->first_node("y")->value()),
-					atof(childNode->first_node("position")->first_node("z")->value()));
-				scene->rotation = Vector3(atof(childNode->first_node("rotation")->first_node("x")->value()),
-					atof(childNode->first_node("rotation")->first_node("y")->value()),
-					atof(childNode->first_node("rotation")->first_node("z")->value()));
-				scene->scale = Vector3(atof(childNode->first_node("scale")->first_node("x")->value()),
-					atof(childNode->first_node("scale")->first_node("y")->value()),
-					atof(childNode->first_node("scale")->first_node("z")->value()));
-				if (strcmp(childNode->first_node("depthTest")->value(), "true") == 0) {
-					scene->depthTest = true;
-				}
-				else
-					scene->depthTest = false;
-				//cout << "selfRotateSpeed\t" << childNode->first_node("selfRotateSpeed")->value() << endl;
-				//pentru followingCamera - NU MERGE
-
-				//cout << "lights\tlight\t" << childNode->first_node("lights")->first_node("light")->value() << endl;
-				//pentru position - NU MERGE
-
-				unsigned int id = atoi(childNode->first_attribute("id")->value());
-
-				if (strcmp(childNode->first_node("model")->value(), "generated") != 0)
-					scene->setModel(ResourceManager::getInstance()->loadModel(atoi(childNode->first_node("model")->value())));
-
-				scene->setShader(ResourceManager::getInstance()->loadShader(atoi(childNode->first_node("shader")->value())));
-				std::cout << childNode->first_node("shader")->value();
-
-				for (xml_node<> * schildNode = childNode->first_node("textures")->first_node("texture"); schildNode; schildNode = schildNode->next_sibling())
-				{
-					scene->addTextures(ResourceManager::getInstance()->loadTexture(atoi(schildNode->first_attribute("id")->value())));
-					cout << "\t  texture\tid" << schildNode->first_attribute("id")->value() << endl;
-				}
-
-				sceneObject.insert(pair <unsigned int, SceneObject*>(id, scene));
-
 			}
 			else if ((strcmp(childNode->first_node("type")->value(), "terrain")) == 0) {
-				;
-			}
-			//mai ramane pt type-urile speciale
-			
+				Terrain *terrain = new Terrain(atoi(childNode->first_node("cells")->value()),
+					(float)atof(childNode->first_node("dimensiune")->value()),
+					(float)atof(childNode->first_node("offsetY")->value()), 
+					childNode->first_node("model")->value());
 
-			
+				terrain->setHeight(Vector3(atof(childNode->first_node("inaltimi")->first_node("r")->value()),
+					atof(childNode->first_node("inaltimi")->first_node("g")->value()),
+					atof(childNode->first_node("inaltimi")->first_node("b")->value())));
+				scene = (SceneObject*)terrain;
+			}
+			/*else if ((strcmp(childNode->first_node("type")->value(), "skybox")) == 0) {
+				scene = new Skybox();
+			}*/
+
+			scene->position = Vector3(atof(childNode->first_node("position")->first_node("x")->value()),
+				atof(childNode->first_node("position")->first_node("y")->value()),
+				atof(childNode->first_node("position")->first_node("z")->value()));
+			scene->rotation = Vector3(atof(childNode->first_node("rotation")->first_node("x")->value()),
+				atof(childNode->first_node("rotation")->first_node("y")->value()),
+				atof(childNode->first_node("rotation")->first_node("z")->value()));
+			scene->scale = Vector3(atof(childNode->first_node("scale")->first_node("x")->value()),
+				atof(childNode->first_node("scale")->first_node("y")->value()),
+				atof(childNode->first_node("scale")->first_node("z")->value()));
+			if (strcmp(childNode->first_node("depthTest")->value(), "true") == 0) {
+				scene->depthTest = true;
+			}
+			else
+				scene->depthTest = false;
+
+			unsigned int id = atoi(childNode->first_attribute("id")->value());
+
+			if (strcmp(childNode->first_node("model")->value(), "generated") != 0)
+				scene->setModel(ResourceManager::getInstance()->loadModel(atoi(childNode->first_node("model")->value())));
+
+			scene->setShader(ResourceManager::getInstance()->loadShader(atoi(childNode->first_node("shader")->value())));
+			std::cout << childNode->first_node("shader")->value();
+
+			for (xml_node<> * schildNode = childNode->first_node("textures")->first_node("texture"); schildNode; schildNode = schildNode->next_sibling())
+			{
+				scene->addTextures(ResourceManager::getInstance()->loadTexture(atoi(schildNode->first_attribute("id")->value())));
+				cout << "\t  texture\tid" << schildNode->first_attribute("id")->value() << endl;
+			}
+
+			sceneObject.insert(pair <unsigned int, SceneObject*>(id, scene));
 		}
 		
 	}
@@ -131,7 +135,8 @@ Camera*	SceneManager::getActiveCamera() {
 
 
 void SceneManager::Update() {
-	//
+	for (std::map<unsigned int, SceneObject*>::iterator it = sceneObject.begin(); it != sceneObject.end(); ++it)
+		it->second->Update();
 }
 
 void SceneManager::Draw() {

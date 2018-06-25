@@ -51,6 +51,9 @@
     <ClCompile Include="SceneObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -98,6 +101,9 @@
     <ClInclude Include="SceneObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Readme.doc" />
@@ -105,6 +111,12 @@
       <Filter>Resources\Shaders</Filter>
     </None>
     <None Include="..\Resources\Shaders\fragmentShader.fs">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\terrainShader.fs">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\terrainShader.vs">
       <Filter>Resources\Shaders</Filter>
     </None>
   </ItemGroup>

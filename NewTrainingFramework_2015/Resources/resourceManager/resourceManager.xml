@@ -45,6 +45,36 @@
 			<wrap_s>CLAMP_TO_EDGE</wrap_s>
 			<wrap_t>CLAMP_TO_EDGE</wrap_t>
 		</texture>
+		<!--NOU-->
+		<texture id="50" type="2d">
+			<path>Resources/Textures/Grass.tga</path>
+			<min_filter>LINEAR</min_filter>
+			<mag_filter>LINEAR</mag_filter>
+			<wrap_s>GL_REPEAT</wrap_s>
+			<wrap_t>GL_REPEAT</wrap_t>
+		</texture>
+		<texture id="40" type="2d">
+			<path>Resources/Textures/Rock.tga</path>
+			<min_filter>LINEAR</min_filter>
+			<mag_filter>LINEAR</mag_filter>
+			<wrap_s>GL_REPEAT</wrap_s>
+			<wrap_t>GL_REPEAT</wrap_t>
+		</texture>
+		<texture id="60" type="2d">
+			<path>Resources/Textures/Dirt.tga</path>
+			<min_filter>LINEAR</min_filter>
+			<mag_filter>LINEAR</mag_filter>
+			<wrap_s>GL_REPEAT</wrap_s>
+			<wrap_t>GL_REPEAT</wrap_t>
+		</texture>
+		<texture id="70" type="2d">
+			<path>Resources/Textures/Terrain_blend_map.tga</path>
+			<min_filter>LINEAR</min_filter>
+			<mag_filter>LINEAR</mag_filter>
+			<wrap_s>GL_REPEAT</wrap_s>
+			<wrap_t>GL_REPEAT</wrap_t>
+		</texture>
+		<!--END NOU-->
 		<!-- si aici se adauga toate texturile -->
 	</textures>	
 </resourceManager>

@@ -53,57 +53,6 @@ int Init ( ESContext *esContext )
 	SceneManager::getInstance()->Init();
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
 
-	//triangle data (heap)
-	
-	//parsare();
-
-
-	//buffer object
-	
-	//pentru model
-	/*(1, &modelId);
-	glBindBuffer(GL_ARRAY_BUFFER, modelId);
-	glBufferData(GL_ARRAY_BUFFER, nrVertices*sizeof(Vertex), model, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	if (!wired) {
-		glGenBuffers(1, &indiciId);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, nrIndices * sizeof(unsigned short), vIndices, GL_STATIC_DRAW); //
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	}
-	else
-	{
-		glGenBuffers(1, &wiredIboId);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, windices.size() * sizeof(unsigned int), &(windices)[0], GL_STATIC_DRAW);//&(windices)[0]
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	}*/
-
-	//end model
-
-	/*
-	array_pixels = LoadTGA("../Resources/Textures/witch.tga", &width, &height, &bpp);
-	if (bpp == 24) {
-		format = GL_RGB;
-	}
-	else {
-		format = GL_RGBA;
-	}
-	glGenTextures(1, &texturaId);//
-	glBindTexture(GL_TEXTURE_2D, texturaId);//
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);//
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, (GLvoid *)array_pixels);
-	glBindTexture(GL_TEXTURE_2D, 0);*/
-
-	//creation of shaders and program 
-	/*myModel.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
-	lineShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
-	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");*/
-
 	return 0;
 }
 
@@ -270,62 +219,15 @@ void Draw ( ESContext *esContext )
 
 	
 	SceneManager::getInstance()->Draw();
-	/*
-	glUseProgram(myModel.program);
-
-	Matrix mod;
-	mod = x.viewMatrix * x.Perspect;
 	
-	glBindBuffer(GL_ARRAY_BUFFER, modelId);
-	if (!wired)
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiciId);
-	else
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wiredIboId);
-
-	if (myModel.positionAttribute != -1)
-	{
-		glEnableVertexAttribArray(myModel.positionAttribute);
-		glVertexAttribPointer(myModel.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-	}
-
-
-	if (myModel.matrixUniform != -1)
-	{
-		glUniformMatrix4fv(myModel.matrixUniform, 1, GL_FALSE, (GLfloat*)mod.m);
-	}
-
-	if (myModel.textureUniform != -1)
-	{
-		glBindTexture(GL_TEXTURE_2D, texturaId);//
-		glUniform1i(myModel.textureUniform, 0);
-	}
-
-	if (myModel.uvAttribute != -1)
-	{
-		glEnableVertexAttribArray(myModel.uvAttribute);
-		glVertexAttribPointer(myModel.uvAttribute, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(5*sizeof(Vector3)));
-	}
-
-	if(!wired)
-		glDrawElements(GL_TRIANGLES, nrIndices, GL_UNSIGNED_SHORT, (void *)0);
-	
-	else
-		glDrawElements(GL_LINES, nrIndices*2, GL_UNSIGNED_INT, (void *)0);//
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	if (!wired)
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	else
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);//
-
-	//end model*/
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
 void Update ( ESContext *esContext, float deltaTime )
 {
+	SceneManager::getInstance()->Update();
 	Camera *x = SceneManager::getInstance()->getActiveCamera();
+	
 	x->setDeltaTime(deltaTime);
 	POINT pct;
 	if ((GetKeyState(VK_LBUTTON) & 0x100) != 0) {
@@ -342,6 +244,7 @@ void Update ( ESContext *esContext, float deltaTime )
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 {
 	Camera *x = SceneManager::getInstance()->getActiveCamera();
+	
 	switch (key)
 	{
 	case 'W':

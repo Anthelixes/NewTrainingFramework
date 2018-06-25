@@ -3,7 +3,6 @@
 #include <map>
 #include "Camera.h"
 #include "SceneObject.h"
-#include "../Utilities/utilities.h"
 
 class SceneManager
 {

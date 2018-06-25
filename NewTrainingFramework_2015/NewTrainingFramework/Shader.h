@@ -1,7 +1,7 @@
 #pragma once
 #include "ShaderResource.h"
-#include "../Utilities/utilities.h"
 
+#include "../Utilities/esUtil.h"
 class Shader
 {
 private:
@@ -15,6 +15,7 @@ public:
 	GLuint	matrixUniform;
 	GLuint	textureUniform[5];
 	GLuint	uvAttribute;
+	GLuint	uvblendAttribute;
 
 	void	setShaderResource(ShaderResource *);
 	void	Load();
