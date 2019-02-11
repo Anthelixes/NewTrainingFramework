@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sceneManager>
+
+	<backgroundColor>
+		<r>0.0</r>
+		<g>0.0</g>
+		<b>0.0</b>
+	</backgroundColor>
+
+	
+	
+	<cameras>
+		<camera id="1">
+			<position>
+				<x>0</x>
+				<y>0</y>
+				<z>1</z>
+			</position>
+			<target>
+				<x>0</x>
+				<y>0</y>
+				<z>-1</z>
+			</target>
+			<up>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</up>
+			<translationSpeed>10</translationSpeed>
+			<rotationSpeed>0.3</rotationSpeed>
+			<fov>45</fov>
+			<near>0.2</near>
+			<far>10000</far>
+		</camera>
+		<!-- eventual si alte cameras -->
+	</cameras>
+	<activeCamera>1</activeCamera>
+
+	
+	<objects>
+		<!--
+		<object id="1">
+			<model>1</model>
+			<shader>10</shader>
+			<type>normal</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Crocodil_verde</name>
+			<textures>
+				<texture id="1"/>
+			</textures>
+			<position>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>-->
+		
+		<!--ADD nou-->
+		<object id="2">
+			<model>1</model><!-- id model -->
+			<shader>10</shader><!-- id shader -->
+			<type>normal</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Crocodil_verde</name><!-- optional -->
+			<textures>
+				<texture id="1"/>
+			</textures>
+			<position><!-- translatia -->
+				<x>-10.0</x>
+				<y>0.0</y>
+				<z>-50.0</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>180.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>0.1</x>
+				<y>0.1</y>
+				<z>0.1</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>
+
+		<!--ADD nou-->
+		<object id="7">
+			<model>3</model><!-- id model -->
+			<shader>10</shader><!-- id shader -->
+			<type>normal</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Autobuz</name><!-- optional -->
+			<textures>
+				<texture id="5"/>
+			</textures>
+			<position><!-- translatia -->
+				<x>10.0</x><!--10.0-->
+				<y>0.0</y>
+				<z>-100.0</z><!-- -1.0-->
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>0.1</x>
+				<y>0.1</y>
+				<z>0.1</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>
+		
+		<object id="8">
+			<model>generated</model>
+			<shader>8</shader>
+			<type>terrain</type>
+			<wired/>
+			<depthTest>true</depthTest>
+			<blend>false</blend>
+			<name>Teren</name>
+			<cells>30</cells><!--23.06-->
+			<dimensiune>4</dimensiune><!--23.06-->
+			<offsetY>0</offsetY><!--23.06-->
+			<textures>
+				<texture id="50"/>
+				<texture id="51"/>
+				<texture id="52"/>
+				<texture id="53"/>
+			</textures>
+			<inaltimi>
+				<r>2</r>
+				<g>0</g>
+				<b>-1</b>
+			</inaltimi>
+			<color>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</color>
+			<position>
+				<x>-2.0</x><!--1.5-->
+				<y>-2.0</y><!--2.4-->
+				<z>7</z><!--7-->
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<trajectory type="linear" iteration="infinite" direction="alternate">
+			
+				<endPoint>
+					<x>0.5</x>
+					<y>100.0</y>
+					<z>1.0</z>				
+				</endPoint>
+				<speed>0.1</speed>
+			</trajectory>
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>
+		
+		<!--ADD nou-->
+		<object id="21">
+			<model>70</model><!-- id model -->
+			<shader>70</shader><!-- id shader -->
+			<type>SkyBox</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>SkyBox</name><!-- optional -->
+			<offsetY>0</offsetY>
+			<textures>
+				<texture id="70"/>
+			</textures>
+			<position>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>10.0</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>3.14159265359</z>
+			</rotation>
+			<scale>
+				<x>100.0</x>
+				<y>100.0</y>
+				<z>100.0</z>
+			</scale>
+			<depthTest>false</depthTest>
+		</object>
+		
+		<!--ADD nou-->
+		<object id="211">
+			<model>260</model><!-- id model -->
+			<shader>260</shader><!-- id shader -->
+			<type>Fire</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Foc</name><!-- optional -->
+			<textures>
+				<texture id="260"/>
+				<texture id="261"/>
+				<texture id="262"/>
+			</textures>
+			<position>
+				<x>-20.0</x>
+				<y>-10.0</y>
+				<z>-15.0</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<dispMax>0.1</dispMax>
+			<depthTest>false</depthTest>
+		</object>
+	</objects>
+	
+	<fog>
+		<color>
+			<r>40</r>
+			<g>60</g>
+			<b>70</b>
+		</color>
+		<raza_mica>20</raza_mica>
+		<raza_mare>50</raza_mare>
+	</fog>
+	
+	<ambientalLight>
+		<color>
+			<r>1.0</r>
+			<g>1.0</g>
+			<b>1.0</b>
+		</color>
+		<ratio>0.7</ratio>
+	</ambientalLight>
+	
+	<lights>
+		<!--<light id="1" type="Point">
+			<diffuseColor>
+				<color>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</color>
+				<direction>
+					<x>0</x>
+					<y>0</y>
+					<z>-1</z>
+				</direction>
+			</diffuseColor>
+			<specularColor>
+				<color>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</color>
+				<specPower>0.7</sperPower>
+			</specularColor>
+		</light>-->
+		
+		<!--LUMINA NOUA-->
+		<!--<light id="110" type="Directional">
+			<diffuseColor>
+				<color>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</color>
+				<direction>
+					<x>0</x>
+					<y>-1</y>
+					<z>0</z>
+				</direction>
+			</diffuseColor>
+			<specularColor>
+				<color>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</color>
+				<specPower>0.7</sperPower>
+			</specularColor>
+		</light>-->
+		
+		<light id="111" type="Spotlight">
+			<diffuseColor>
+				<color>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</color>
+				<direction>
+					<x>0</x>
+					<y>-1</y>
+					<z>0</z>
+				</direction>
+			</diffuseColor>
+			<specularColor>
+				<color>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</color>
+				<specPower>0.7</sperPower>
+			</specularColor>
+			<position>
+				<x>0</x>
+				<y>5</y>
+				<z>0</z>
+			</position>
+			<deschidere>0.26</deschidere>
+			<direction>
+				<x>0</x>
+				<y>-1</y>
+				<z>0</z>
+			</direction>
+		</light>
+	</lights>
+	
+	<debugSettings>
+		<objectAxes>
+			<OXColor>
+				<r>1.0</r>
+				<g>0.0</g>
+				<b>0.0</b>
+			</OXColor>
+			<OYColor>
+				<r>0.0</r>
+				<g>1.0</g>
+				<b>0.0</b>
+			</OYColor>
+			<OZColor>
+				<r>0.0</r>
+				<g>0.0</g>
+				<b>1.0</b>
+			</OZColor>
+		</objectAxes>
+		<camAxes>
+			<OXColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>0.0</b>
+			</OXColor>
+			<OYColor>
+				<r>0.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</OYColor>
+			<OZColor>
+				<r>1.0</r>
+				<g>0.0</g>
+				<b>1.0</b>
+			</OZColor>
+		</camAxes>
+	</debugSettings>
+	
+</sceneManager>
